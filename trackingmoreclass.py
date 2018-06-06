@@ -1,0 +1,57 @@
+#! /usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+import sys
+import json
+import urllib.request
+import urllib.parse
+import http.client
+
+headers={"Content-Type":"application/json",
+        "Trackingmore-Api-Key":"32de660c-b478-40f1-8c75-d5ada104be82",
+        'X-Requested-With':'XMLHttpRequest'
+        }
+class track:
+
+    def trackingmore(requestData, urlStr, method):
+        if method == "get":
+            url = 'http://api.trackingmore.com/v2/trackings/get'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl, headers=headers)
+            result = urllib.request.urlopen(req).read()
+        elif method == "post":
+            url = 'http://api.trackingmore.com/v2/trackings/post'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="POST")
+            result = urllib.request.urlopen(req).read()
+        elif method == "batch":
+            url = 'http://api.trackingmore.com/v2/trackings/batch'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="POST")
+            result = urllib.request.urlopen(req).read()
+        elif method == "codeNumberGet":
+            url = 'http://api.trackingmore.com/v2/trackings'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="GET")
+            result = urllib.request.urlopen(req).read()
+            result = json.loads(result.decode('utf-8'))
+        elif method == "codeNumberPut":
+            url = 'http://api.trackingmore.com/v2/trackings'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="PUT")
+            result = urllib.request.urlopen(req).read()
+        elif method == "codeNumberDel":
+            url = 'http://api.trackingmore.com/v2/trackings'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="DELETE")
+            result = urllib.request.urlopen(req).read()
+        elif method == "realtime":
+            url = 'http://api.trackingmore.com/v2/trackings/realtime'
+            RelUrl = url + urlStr
+            req = urllib.request.Request(RelUrl,requestData.encode('utf-8'), headers=headers,method="POST")
+            result = urllib.request.urlopen(req).read()
+        return result
+
+
+
+
